@@ -1,0 +1,59 @@
+# TinyTuner config
+# Run with: accelerate launch finetune.py configs/codellama.yaml
+
+# Model
+model_name: meta-llama/Llama-2-7b-hf
+hub_model_id: codellama-2-7b-neo
+
+# Dataset
+dataset_name: sahil2801/CodeAlpaca-20k
+prompt_template: alpaca
+max_seq_length: 512
+val_set_size: 0.01
+
+# Loading
+load_in_8bit: false
+load_in_4bit: true
+bf16: true
+fp16: false
+tf32: true
+
+# Lora
+adapter: qlora
+lora_model_dir:
+lora_r: 8
+lora_alpha: 16
+lora_dropout: 0.1
+lora_target_modules:
+  - q_proj
+  - v_proj
+lora_fan_in_fan_out:
+
+# Training
+learning_rate: 0.0002
+micro_batch_size: 24
+gradient_accumulation_steps: 1
+num_epochs: 5
+lr_scheduler_type: cosine
+optim: paged_adamw_32bit
+group_by_length: true
+warmup_ratio: 0.1
+eval_steps: 25
+save_strategy: epoch
+logging_steps: 1
+weight_decay: 0.3
+max_grad_norm:
+max_steps: -1
+gradient_checkpointing: true
+
+# QLoRA
+bnb_4bit_compute_dtype: float16
+bnb_4bit_quant_type: nf4
+bnb_4bit_use_double_quant: false
+
+# Wandb
+wandb_project: tinytuner
+wandb_watch:
+wandb_log_model:
+wandb_run_id:
+output_dir: ./logs
