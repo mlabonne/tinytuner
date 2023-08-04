@@ -51,7 +51,7 @@ def validate_config(cfg):
 
 
 def setup_wandb_env_vars(cfg):
-    current_datetime = datetime.now().strftime("-%Y-%m-%d-%H:%M:%S")
+    current_datetime = datetime.now().strftime("-%Y-%m-%d-%H-%M-%S")
 
     if cfg["wandb_project"] and len(cfg["wandb_project"]) > 0:
         os.environ["WANDB_PROJECT"] = cfg["wandb_project"]

@@ -37,7 +37,7 @@ def train(file_path: str):
 
     # Set up wandb parameters
     setup_wandb_env_vars(cfg)
-    current_datetime = datetime.now().strftime("-%Y-%m-%d-%H:%M:%S")
+    current_datetime = datetime.now().strftime("-%Y-%m-%d-%H-%M-%S")
 
     # Load dataset
     dataset = load_and_format_dataset(cfg["dataset_name"], cfg["prompt_template"])
