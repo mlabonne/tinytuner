@@ -39,7 +39,7 @@ def load_and_format_dataset(dataset_name, prompt_template):
     # Applying the format_row function and keeping only the new column
     if prompt_template != "text":
         dataset = dataset.map(format_row)
-    dataset = dataset.remove_columns(["instruction", "output", "input"])
+        dataset = dataset.remove_columns(["instruction", "output", "input"])
     logger.info(f"Dataset {dataset_name} loaded successfully")
 
     return dataset
