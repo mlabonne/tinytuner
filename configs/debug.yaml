@@ -2,7 +2,7 @@
 # Run with: accelerate launch finetune.py configs/debug.yaml
 
 # Model
-model_name: meta-llama/Llama-2-7b-hf
+model_name: mlabonne/dummy-llama-2
 hub_model_id: test
 
 # Dataset
