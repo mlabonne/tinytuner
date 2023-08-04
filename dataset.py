@@ -41,6 +41,5 @@ def load_and_format_dataset(dataset_name, prompt_template):
         dataset = dataset.map(format_row)
     dataset = dataset.remove_columns(["instruction", "output", "input"])
     logger.info(f"Dataset {dataset_name} loaded successfully")
-    logger.info(f"Sample:\n{dataset[0]}")
 
     return dataset

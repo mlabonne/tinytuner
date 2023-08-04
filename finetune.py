@@ -14,7 +14,7 @@ from transformers import (
 from trl import SFTTrainer
 
 from dataset import load_and_format_dataset
-from utils import setup_wandb_env_vars, validate_config
+from utils import setup_wandb, validate_config
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -36,13 +36,14 @@ def train(file_path: str):
     validate_config(cfg)
 
     # Set up wandb parameters
-    setup_wandb_env_vars(cfg)
+    setup_wandb(cfg)
     current_datetime = datetime.now().strftime("-%Y-%m-%d-%H-%M-%S")
 
     # Load dataset
     dataset = load_and_format_dataset(cfg["dataset_name"], cfg["prompt_template"])
     dataset = dataset.train_test_split(test_size=cfg["val_set_size"])
-    logger.info(f"Val sample:\n{dataset['test'][0]}")
+    logger.info(f"Training sample:\n{dataset['train'][0]}")
+    logger.info(f"Validation sample:\n{dataset['test'][0]}")
 
     # QLoRA configuration
     if cfg["adapter"] == "qlora":

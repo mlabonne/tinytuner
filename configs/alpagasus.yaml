@@ -3,10 +3,10 @@
 
 # Model
 model_name: meta-llama/Llama-2-7b-hf
-hub_model_id: codellama-2-7b-neo
+hub_model_id: alpagasus-2-7b
 
 # Dataset
-dataset_name: sahil2801/CodeAlpaca-20k
+dataset_name: mlabonne/alpagasus
 prompt_template: alpaca
 max_seq_length: 512
 val_set_size: 0.01
