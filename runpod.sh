@@ -11,6 +11,6 @@ apt update
 apt install -y screen vim git-lfs
 screen
 
-accelerate launch finetune.py configs/debug.yaml
+accelerate launch finetune.py configs/alpagasus.yaml
 
 sleep infinity
