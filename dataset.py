@@ -3,7 +3,6 @@ import logging
 
 from datasets import load_dataset
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 

@@ -30,15 +30,15 @@ lora_target_modules:
 lora_fan_in_fan_out:
 
 # Training
-learning_rate: 0.0002
+learning_rate: 2e-4
 micro_batch_size: 24
 gradient_accumulation_steps: 1
 num_epochs: 1
 lr_scheduler_type: cosine
 optim: paged_adamw_32bit
 group_by_length: true
-warmup_ratio: 0.1
-eval_steps: 0.01
+warmup_ratio: 0
+eval_steps: 1
 save_strategy: epoch
 logging_steps: 1
 weight_decay: 0.3

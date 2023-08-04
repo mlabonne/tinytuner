@@ -30,7 +30,7 @@ lora_target_modules:
 lora_fan_in_fan_out:
 
 # Training
-learning_rate: 0.0002
+learning_rate: 2e-4
 micro_batch_size: 24
 gradient_accumulation_steps: 1
 num_epochs: 5

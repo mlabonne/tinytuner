@@ -40,6 +40,7 @@ def train(file_path: str):
     # Load dataset
     dataset = load_and_format_dataset(cfg["dataset_name"], cfg["prompt_template"])
     dataset = dataset.train_test_split(test_size=cfg["val_set_size"])
+    logger.info(f"Val sample:\n{dataset['test'][0]}")
 
     # QLoRA configuration
     if cfg["adapter"] == "qlora":
@@ -83,12 +84,14 @@ def train(file_path: str):
         * cfg["gradient_accumulation_steps"],
         per_device_eval_batch_size=cfg["micro_batch_size"]
         * cfg["gradient_accumulation_steps"],
-        gradient_accumulation_steps = cfg["gradient_accumulation_steps"],
+        gradient_accumulation_steps=cfg["gradient_accumulation_steps"],
+        eval_accumulation_steps=cfg["gradient_accumulation_steps"],
         num_train_epochs=cfg["num_epochs"],
         lr_scheduler_type=cfg["lr_scheduler_type"],
         optim=cfg["optim"],
         group_by_length=cfg["group_by_length"],
         warmup_ratio=cfg["warmup_ratio"],
+        evaluation_strategy="steps",
         eval_steps=cfg["eval_steps"],
         save_strategy=cfg["save_strategy"],
         save_total_limit=2,
