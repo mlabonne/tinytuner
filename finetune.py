@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 import fire
 import torch
@@ -36,6 +37,7 @@ def train(file_path: str):
 
     # Set up wandb parameters
     setup_wandb_env_vars(cfg)
+    current_datetime = datetime.now().strftime("-%Y-%m-%d-%H:%M:%S")
 
     # Load dataset
     dataset = load_and_format_dataset(cfg["dataset_name"], cfg["prompt_template"])
@@ -104,7 +106,7 @@ def train(file_path: str):
         max_steps=cfg["max_steps"],
         gradient_checkpointing=cfg["gradient_checkpointing"],
         report_to="wandb" if cfg["wandb_project"] else None,
-        run_name=cfg["hub_model_id"],
+        run_name=cfg["hub_model_id"] + current_datetime,
         output_dir=cfg["output_dir"],
         hub_model_id=cfg["hub_model_id"],
         push_to_hub=True,

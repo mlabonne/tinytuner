@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 
 def validate_config(cfg):
@@ -50,6 +51,8 @@ def validate_config(cfg):
 
 
 def setup_wandb_env_vars(cfg):
+    current_datetime = datetime.now().strftime("-%Y-%m-%d-%H:%M:%S")
+
     if cfg["wandb_project"] and len(cfg["wandb_project"]) > 0:
         os.environ["WANDB_PROJECT"] = cfg["wandb_project"]
         if cfg["wandb_watch"] and len(cfg["wandb_watch"]) > 0:
@@ -59,4 +62,4 @@ def setup_wandb_env_vars(cfg):
         if cfg["wandb_run_id"] and len(cfg["wandb_run_id"]) > 0:
             os.environ["WANDB_RUN_ID"] = cfg["wandb_run_id"]
         else:
-            os.environ["WANDB_RUN_ID"] = cfg["hub_model_id"]
+            os.environ["WANDB_RUN_ID"] = cfg["hub_model_id"] + current_datetime
