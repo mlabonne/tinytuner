@@ -12,14 +12,14 @@ max_seq_length: 512
 val_set_size: 0.01
 
 # Loading
-load_in_8bit: true
-load_in_4bit: false
+load_in_8bit: false
+load_in_4bit: true
 bf16: true
 fp16: false
 tf32: true
 
 # Lora
-adapter: lora
+adapter: qlora
 lora_model_dir:
 lora_r: 8
 lora_alpha: 16
@@ -31,11 +31,11 @@ lora_fan_in_fan_out:
 
 # Training
 learning_rate: 0.00002
-micro_batch_size: 2
-gradient_accumulation_steps: 4
+micro_batch_size: 24
+gradient_accumulation_steps: 1
 num_epochs: 3
 lr_scheduler_type: cosine
-optim: adamw_bnb_8bit
+optim: paged_adamw_32bit
 group_by_length: true
 warmup_ratio: 0.03
 eval_steps: 0.01
@@ -51,23 +51,9 @@ bnb_4bit_compute_dtype: float16
 bnb_4bit_quant_type: nf4
 bnb_4bit_use_double_quant: false
 
-# Parallel training
-fsdp:
-- full_shard
-- auto_wrap
-fsdp_config:
-- fsdp_transformer_layer_cls_to_wrap: LlamaDecoderLayer
-
 # Wandb
 wandb_project: tinytuner
 wandb_watch:
 wandb_log_model:
 wandb_run_id:
 output_dir: ./logs
-
-# Misc
-special_tokens:
-  bos_token: "<s>"
-  eos_token: "</s>"
-  unk_token: "<unk>"
-  pad_token: "<pad>"
