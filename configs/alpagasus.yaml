@@ -3,7 +3,7 @@
 
 # Model
 model_name: meta-llama/Llama-2-7b-hf
-hub_model_id: alpagasus-2-7b-private
+hub_model_id: alpagasus-2-7b-lora
 
 # Dataset
 dataset_name: mlabonne/alpagasus
