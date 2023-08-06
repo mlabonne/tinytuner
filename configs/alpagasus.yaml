@@ -31,7 +31,7 @@ lora_fan_in_fan_out:
 
 # Training
 learning_rate: 0.00002
-micro_batch_size: 32
+micro_batch_size: 24
 gradient_accumulation_steps: 1
 num_epochs: 3
 lr_scheduler_type: cosine
