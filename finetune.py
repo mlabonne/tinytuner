@@ -113,7 +113,7 @@ def train(file_path: str):
         push_to_hub=True,
         hub_private_repo=True,
         fsdp=cfg.get("fsdp", None),
-        fsdp=cfg.get("fsdp_config", None),
+        fsdp_config=cfg.get("fsdp_config", None),
     )
 
     # Set supervised fine-tuning parameters
