@@ -55,12 +55,10 @@ def train(file_path: str):
             bnb_4bit_use_double_quant=cfg["bnb_4bit_use_double_quant"],
         )
 
-    if cfg["bf16"]:
+    if cfg.get("bf16", False):
         torch_dtype = torch.bfloat16
-    elif cfg["fp16"]: #or cfg.load_in_8bit:
-        torch_dtype = torch.float16
     else:
-        torch_dtype = torch.float32
+        torch_dtype = torch.float16
 
     # Load base model
     model = AutoModelForCausalLM.from_pretrained(
@@ -87,7 +85,7 @@ def train(file_path: str):
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"  # Fix weird overflow issue with fp16 training
     tokenizer.model_max_length = cfg["max_seq_length"]
-    if cfg["special_tokens"]:
+    if cfg.get("special_tokens", False):
         for k, val in cfg["special_tokens"].items():
             tokenizer.add_special_tokens({k: val})
 
