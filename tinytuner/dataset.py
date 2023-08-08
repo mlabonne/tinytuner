@@ -10,7 +10,7 @@ def load_and_format_dataset(dataset_name, prompt_template):
     logger.info(prompt_template)
 
     # Load templates from JSON file
-    with open("../prompt_templates.json") as f:
+    with open("prompt_templates.json") as f:
         templates = json.load(f)
     logger.info(f'Prompt template "{prompt_template}" loaded successfully')
 
