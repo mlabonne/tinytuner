@@ -3,7 +3,7 @@
 
 # Model
 model_name: meta-llama/Llama-2-7b-hf
-hub_model_id: codellama-2-7b-neo
+hub_model_id: codellama-2-7b-qlora
 
 # Dataset
 dataset_name: sahil2801/CodeAlpaca-20k
@@ -45,6 +45,7 @@ weight_decay: 0.3
 max_grad_norm:
 max_steps: -1
 gradient_checkpointing: true
+xformers: true
 
 # QLoRA
 bnb_4bit_compute_dtype: float16

@@ -1,9 +1,9 @@
 # TinyTuner config
-# Run with: accelerate launch finetune.py configs/codellama.yaml
+# Run with: accelerate launch finetune.py configs/alpagasus_qlora.yaml
 
 # Model
 model_name: meta-llama/Llama-2-7b-hf
-hub_model_id: alpagasus-2-7b-private
+hub_model_id: alpagasus-2-7b-qlora
 
 # Dataset
 dataset_name: mlabonne/alpagasus
@@ -45,6 +45,7 @@ weight_decay: 0
 max_grad_norm:
 max_steps: -1
 gradient_checkpointing: true
+xformers: true
 
 # QLoRA
 bnb_4bit_compute_dtype: float16

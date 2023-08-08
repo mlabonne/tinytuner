@@ -55,19 +55,41 @@ def train(file_path: str):
             bnb_4bit_use_double_quant=cfg["bnb_4bit_use_double_quant"],
         )
 
+    if cfg["bf16"]:
+        torch_dtype = torch.bfloat16
+    elif cfg["fp16"]: #or cfg.load_in_8bit:
+        torch_dtype = torch.float16
+    else:
+        torch_dtype = torch.float32
+
     # Load base model
     model = AutoModelForCausalLM.from_pretrained(
         cfg["model_name"],
         quantization_config=bnb_config if cfg["adapter"] == "qlora" else None,
+        load_in_8bit=cfg.get("load_in_8bit", False),
+        load_in_4bit=cfg.get("load_in_4bit", False),
+        torch_dtype=torch_dtype,
         device_map={"": 0},
     )
     model.config.use_cache = False
     model.config.pretraining_tp = 1
 
+    if cfg.get("xformers", False):
+        from monkeypatch.llama_attn_hijack_xformers import (
+            hijack_llama_attention,
+        )
+
+        logger.info("Patching model with xformers attention")
+        hijack_llama_attention()
+
     # Load tokenizer
     tokenizer = AutoTokenizer.from_pretrained(cfg["model_name"], trust_remote_code=True)
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"  # Fix weird overflow issue with fp16 training
+    tokenizer.model_max_length = cfg["max_seq_length"]
+    if cfg["special_tokens"]:
+        for k, val in cfg["special_tokens"].items():
+            tokenizer.add_special_tokens({k: val})
 
     # Load LoRA configuration
     peft_config = LoraConfig(

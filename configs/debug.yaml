@@ -45,6 +45,7 @@ weight_decay: 0.3
 max_grad_norm:
 max_steps: -1
 gradient_checkpointing: true
+xformers: true
 
 # QLoRA
 bnb_4bit_compute_dtype: float16
