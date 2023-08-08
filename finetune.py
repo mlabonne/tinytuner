@@ -57,7 +57,7 @@ def train(file_path: str):
         bnb_config = BitsAndBytesConfig(
             load_in_4bit=cfg["load_in_4bit"],
             bnb_4bit_quant_type=cfg["bnb_4bit_quant_type"],
-            bnb_4bit_compute_dtype=compute_dtype,
+            bnb_4bit_compute_dtype=torch_dtype,
             bnb_4bit_use_double_quant=cfg["bnb_4bit_use_double_quant"],
         )
 
