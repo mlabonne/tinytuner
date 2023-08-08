@@ -34,7 +34,6 @@ def validate_config(cfg):
         "weight_decay",
         "max_steps",
         "gradient_checkpointing",
-        "bnb_4bit_compute_dtype",
         "bnb_4bit_quant_type",
         "bnb_4bit_use_double_quant",
         "wandb_project",

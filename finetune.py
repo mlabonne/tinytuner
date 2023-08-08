@@ -13,8 +13,8 @@ from transformers import (
 )
 from trl import SFTTrainer
 
-from dataset import load_and_format_dataset
-from utils import setup_wandb, validate_config
+from tinytuner.dataset import load_and_format_dataset
+from tinytuner.utils import setup_wandb, validate_config
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
