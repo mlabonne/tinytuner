@@ -45,6 +45,12 @@ def train(file_path: str):
     logger.info(f"Training sample:\n{dataset['train'][0]}")
     logger.info(f"Validation sample:\n{dataset['test'][0]}")
 
+
+    if cfg.get("bf16", False):
+        torch_dtype = torch.bfloat16
+    else:
+        torch_dtype = torch.float16
+
     # QLoRA configuration
     if cfg["adapter"] == "qlora":
         compute_dtype = getattr(torch, cfg["bnb_4bit_compute_dtype"])
@@ -54,11 +60,6 @@ def train(file_path: str):
             bnb_4bit_compute_dtype=compute_dtype,
             bnb_4bit_use_double_quant=cfg["bnb_4bit_use_double_quant"],
         )
-
-    if cfg.get("bf16", False):
-        torch_dtype = torch.bfloat16
-    else:
-        torch_dtype = torch.float16
 
     # Load base model
     model = AutoModelForCausalLM.from_pretrained(
@@ -132,7 +133,7 @@ def train(file_path: str):
         hub_model_id=cfg["hub_model_id"],
         push_to_hub=True,
         hub_private_repo=True,
-        fsdp=cfg.get("fsdp", None),
+        fsdp=cfg.get("fsdp", ''),
         fsdp_config=cfg.get("fsdp_config", None),
     )
 
