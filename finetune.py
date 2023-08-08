@@ -53,7 +53,6 @@ def train(file_path: str):
 
     # QLoRA configuration
     if cfg["adapter"] == "qlora":
-        compute_dtype = getattr(torch, cfg["bnb_4bit_compute_dtype"])
         bnb_config = BitsAndBytesConfig(
             load_in_4bit=cfg["load_in_4bit"],
             bnb_4bit_quant_type=cfg["bnb_4bit_quant_type"],
