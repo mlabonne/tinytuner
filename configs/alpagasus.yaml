@@ -52,11 +52,11 @@ bnb_4bit_quant_type: nf4
 bnb_4bit_use_double_quant: false
 
 # Parallel training
-fsdp:
-- full_shard
-- auto_wrap
-fsdp_config:
-- fsdp_transformer_layer_cls_to_wrap: LlamaDecoderLayer
+# fsdp:
+# - full_shard
+# - auto_wrap
+# fsdp_config:
+# - fsdp_transformer_layer_cls_to_wrap: LlamaDecoderLayer
 
 # Wandb
 wandb_project: tinytuner
