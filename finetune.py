@@ -82,12 +82,13 @@ def train(file_path: str):
 
     # Load tokenizer
     tokenizer = AutoTokenizer.from_pretrained(cfg["model_name"], trust_remote_code=True)
-    tokenizer.pad_token = tokenizer.eos_token
-    tokenizer.padding_side = "right"  # Fix weird overflow issue with fp16 training
     tokenizer.model_max_length = cfg["max_seq_length"]
     if cfg.get("special_tokens", False):
         for k, val in cfg["special_tokens"].items():
             tokenizer.add_special_tokens({k: val})
+    if not tokenizer.pad_token:
+        tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+        tokenizer.padding_side = "right"
 
     # Load LoRA configuration
     peft_config = LoraConfig(

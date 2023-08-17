@@ -1,8 +1,8 @@
 accelerate==0.21.0
 peft==0.4.0
-bitsandbytes==0.40.2
+bitsandbytes==0.41.1
 transformers==4.31.0
-trl==0.4.7
+trl==0.5.0
 scipy
 pyyaml
 fire
